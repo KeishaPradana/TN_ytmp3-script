@@ -1,0 +1,28 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# Cek input
+if [ -z "$1" ]; then
+  echo "Penggunaan: TNmp3dl \"link_youtube_video_or_playlist\""
+  exit 1
+fi
+
+echo "📥 Memeriksa update yt-dlp..."
+pip install -U yt-dlp >/dev/null 2>&1
+
+# Tentukan folder tujuan
+TARGET="/sdcard/Download/"
+
+echo "🎶 Sedang mengunduh dari: $1"
+
+# Unduh audio (otomatis bisa satu video atau playlist)
+yt-dlp -x --audio-format mp3 --audio-quality 0 \
+--user-agent "Mozilla/5.0" -o "%(title)s.%(ext)s" "$1"
+
+# Pindahkan semua MP3 hasil download ke /sdcard/Download/
+echo "📂 Memindahkan file .mp3 ke folder Download..."
+for file in *.mp3; do
+  [ -f "$file" ] && mv "$file" "$TARGET"
+done
+
+echo "✅ Semua file MP3 disimpan di: $TARGET"
+echo "TN_KeishaPradana"
