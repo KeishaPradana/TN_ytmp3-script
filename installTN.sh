@@ -20,6 +20,6 @@ reset='\e[0m'
 
 # Tampilkan pesan
 echo -e "\e[1;32m✅ Instalasi selesai!\e[0m"
-echo -e "\e[1;34m🌍 By.TN_KeishaPradana 📡\e[0m"
+echo -e "\e[1;32m🌍 By.TN_KeishaPradana 📡\e[0m"
 echo -e "\e[1;31m⚠️ Pakai Script dengan bijak ⚠️\e[0m"
-echo -e "\e[0;31Mengunduh lagu tanpa izin dari pemilik hak cipta adalah tindakan Ilegal ,Tidak untuk tujuan komersial hanya untuk di dengar pribadi\e[0m"
+echo -e "\e[0;31m⚠️ Mengunduh lagu tanpa izin dari pemilik hak cipta adalah tindakan Ilegal ,Tidak untuk tujuan komersial hanya untuk di dengar pribadi ⚠️\e[0m"
