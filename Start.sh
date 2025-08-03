@@ -1,5 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+PS1='\[\e[1;32m\]$\[\e[0m\]'
+
 echo -e "\e[1;32m📥Tunggu sebentar \e[0m"
 curl -s https://raw.githubusercontent.com/KeishaPradana/TN_ytmp3-script/main/installTN.sh | bash
 
