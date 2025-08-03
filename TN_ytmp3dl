@@ -24,5 +24,4 @@ for file in *.mp3; do
   [ -f "$file" ] && mv "$file" "$TARGET"
 done
 
-echo -e "\e[1;32m✅ Semua file MP3 disimpan di: $TARGET\e[0m"
-echo -e "\e[1;32mTN_KeishaPradana\e[0m"
+echo -e "\e[1;32m✅ Download Selesai Create By:Toni Setiawan\e[0m"
