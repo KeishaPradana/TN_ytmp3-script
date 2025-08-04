@@ -28,5 +28,4 @@ elif [[ "$link" == *"watch?v="* ]]; then
 else
     echo -e "${red}⚠️ Link tidak valid. Pastikan itu link YouTube.${reset}"
 fi
-
 echo -e "${green}✅ Selesai mengunduh MP3.${reset}"
