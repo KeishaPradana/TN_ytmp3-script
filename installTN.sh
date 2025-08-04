@@ -1,31 +1,27 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# Warna
-green='\e[1;32m'
-red='\e[0;31m'
-reset='\e[0m'
-
-# Tampilkan header
-echo -e "${green}🎧 Selamat datang di TNmp3dl by KeishaPradana${reset}"
-echo -e "${green}📥 Tempel link YouTube video/playlist untuk diunduh sebagai MP3.${reset}"
-echo -ne "${green}🔗 Masukkan link: ${reset}"
-read link
-
-# Deteksi dan proses
-if [[ "$link" == *"list="* && "$link" != *"watch?v="* ]]; then
-    echo -e "${green}📂 Mendeteksi playlist penuh...${reset}"
-    yt-dlp -x --audio-format mp3 "$link"
-
-elif [[ "$link" == *"watch?v="* && "$link" == *"list="* ]]; then
-    echo -e "${green}🎵 Mendeteksi video dalam playlist...${reset}"
-    video_only=$(echo "$link" | grep -oP 'watch\?v=[^&]*')
-    yt-dlp -x --audio-format mp3 "https://www.youtube.com/$video_only"
-
-elif [[ "$link" == *"watch?v="* ]]; then
-    echo -e "${green}🎵 Mendeteksi video tunggal...${reset}"
-    yt-dlp -x --audio-format mp3 "$link"
-
-else
-    echo -e "${red}⚠️ Link tidak valid. Pastikan itu link YouTube.${reset}"
+# Cek input
+if [ -z "$1" ]; then
+  echo "Penggunaan: TNmp3dl \"link_youtube_video_or_playlist\""
+  exit 1
 fi
-echo -e "${green}✅ Selesai mengunduh MP3.${reset}"
+
+echo -e "\e[1;32m📥 Memeriksa update yt-dlp...\e[0m"
+pip install -U yt-dlp >/dev/null 2>&1
+
+# Tentukan folder tujuan
+TARGET="/sdcard/Download/"
+
+echo -e "\e[1;32m🎶 Sedang mengunduh dari: $1\e[0m"
+
+# Unduh audio (otomatis bisa satu video atau playlist)
+yt-dlp -x --audio-format mp3 --audio-quality 0 \
+--user-agent "Mozilla/5.0" -o "%(title)s.%(ext)s" "$1"
+
+# Pindahkan semua MP3 hasil download ke /sdcard/Download/
+echo -e "\e[1;32m📂 Memindahkan file .mp3 ke folder Download...\e[0m"
+for file in *.mp3; do
+  [ -f "$file" ] && mv "$file" "$TARGET"
+done
+
+echo -e "\e[1;32m✅ Download Selesai Create By:Toni Setiawan\e[0m"
