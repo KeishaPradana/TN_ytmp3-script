@@ -1,25 +1,32 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-echo -e "\e[1;32m📦 Menginstall dependensi...\e[0m"
-pkg install -y python ffmpeg
-pip install -U yt-dlp
-
-echo -e "\e[1;32m📥 Mengambil TNmp3dl dari GitHub...\e[0m"
-curl -o TNmp3dl https://raw.githubusercontent.com/KeishaPradana/TN_ytmp3-script/main/TN_ytmp3dl
-
-chmod +x TNmp3dl
-mv TNmp3dl $PREFIX/bin/
-
-#!/bin/bash
-
 # Warna
 green='\e[1;32m'
-blue='\e[1;34m'
 red='\e[0;31m'
 reset='\e[0m'
 
-# Tampilkan pesan
-echo -e "\e[1;32m✅ Instalasi selesai!\e[0m"
-echo -e "\e[1;32m🌍 By.TN_KeishaPradana 📡\e[0m"
-echo -e "\e[1;31m⚠️ Pakai Script dengan bijak ⚠️\e[0m"
-echo -e "\e[0;31m⚠️ Mengunduh lagu tanpa izin dari pemilik hak cipta adalah tindakan Ilegal ,Tidak untuk tujuan komersial hanya untuk di dengar pribadi ⚠️\e[0m"
+# Tampilkan header
+echo -e "${green}🎧 Selamat datang di TNmp3dl by KeishaPradana${reset}"
+echo -e "${green}📥 Tempel link YouTube video/playlist untuk diunduh sebagai MP3.${reset}"
+echo -ne "${green}🔗 Masukkan link: ${reset}"
+read link
+
+# Deteksi dan proses
+if [[ "$link" == *"list="* && "$link" != *"watch?v="* ]]; then
+    echo -e "${green}📂 Mendeteksi playlist penuh...${reset}"
+    yt-dlp -x --audio-format mp3 "$link"
+
+elif [[ "$link" == *"watch?v="* && "$link" == *"list="* ]]; then
+    echo -e "${green}🎵 Mendeteksi video dalam playlist...${reset}"
+    video_only=$(echo "$link" | grep -oP 'watch\?v=[^&]*')
+    yt-dlp -x --audio-format mp3 "https://www.youtube.com/$video_only"
+
+elif [[ "$link" == *"watch?v="* ]]; then
+    echo -e "${green}🎵 Mendeteksi video tunggal...${reset}"
+    yt-dlp -x --audio-format mp3 "$link"
+
+else
+    echo -e "${red}⚠️ Link tidak valid. Pastikan itu link YouTube.${reset}"
+fi
+
+echo -e "${green}✅ Selesai mengunduh MP3.${reset}"
