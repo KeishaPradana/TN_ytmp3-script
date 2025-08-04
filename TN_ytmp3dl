@@ -1,22 +1,23 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-echo -e "\e[1;32m📦 Menginstall ffmpeg (untuk konversi audio)...\e[0m"
-pkg install -y ffmpeg
-
-echo -e "\e[1;32m📥 Mengambil yt-dlp versi binary (tanpa Python)...\e[0m"
-curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o yt-dlp
-chmod +x yt-dlp
-mv yt-dlp $PREFIX/bin/
+echo -e "\e[1;32m📦 Menginstall dependensi...\e[0m"
+pkg install -y python ffmpeg
+pip install -U yt-dlp
 
 echo -e "\e[1;32m📥 Mengambil TNmp3dl dari GitHub...\e[0m"
 curl -o TNmp3dl https://raw.githubusercontent.com/KeishaPradana/TN_ytmp3-script/main/TN_ytmp3dl
+
 chmod +x TNmp3dl
 mv TNmp3dl $PREFIX/bin/
 
+#!/bin/bash
+
 # Warna
 green='\e[1;32m'
+blue='\e[1;34m'
 red='\e[0;31m'
 reset='\e[0m'
 
-echo -e "${green}✅ Instalasi selesai tanpa Python!${reset}"
-echo -e "${green}📌 Ketik: TNmp3dl 'LINK_YOUTUBE'${reset}"
+# Tampilkan pesan
+echo -e "\e[1;32m✅ Instalasi selesai!\e[0m"
+echo -e "\e[1;32mKetik  TNmp3dl'LINK_YOUTUBE'  masukan LINK\e[0m"
