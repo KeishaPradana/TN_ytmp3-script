@@ -14,19 +14,19 @@ fi
 
 if [[ "$link" == *"list="* && "$link" != *"watch?v="* ]]; then
     echo -e "${green}📜 Mendeteksi playlist...${reset}"
-    yt-dlp -x --audio-format mp3 "$link"
+    yt-dlp -x --audio-format mp3 -P "$link"
 
 elif [[ "$link" == *"watch?v="* && "$link" == *"list="* ]]; then
     echo -e "${green}🎵 Mendeteksi video dari playlist...${reset}"
     video_only=$(echo "$link" | grep -oP 'watch\?v=[^&]*')
-    yt-dlp -x --audio-format mp3 "https://www.youtube.com/$video_only"
+    yt-dlp -x --audio-format mp3 -P "https://www.youtube.com/$video_only"
 
 elif [[ "$link" == *"watch?v="* ]]; then
     echo -e "${green}🎵 Mendeteksi video tunggal...${reset}"
-    yt-dlp -x --audio-format mp3 "$link"
+    yt-dlp -x --audio-format mp3 -P "$link"
 
 else
     echo -e "${red}❌ Link tidak valid atau tidak dikenali.${reset}"
 fi
 
-echo -e "${green}✅ Selesai! MP3 disimpan di folder saat ini.${reset}"
+echo -e "${green}✅ Selesai!${reset}"
